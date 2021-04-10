@@ -42,7 +42,7 @@
         <input id="units" name="units">
     </p>
     <p>
-        <button type="submit">Add</button>
+        <button type="submit">ADD</button>
     </p>
 </form>
 </body>

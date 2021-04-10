@@ -55,16 +55,14 @@ public class ShoppingListServlet extends HttpServlet {
         try (
                 Connection con = DriverManager.getConnection("jdbc:h2:file:~/ShoppingList", "sa", "");
                 PreparedStatement stmt =
-                        con.prepareStatement("INSERT INTO ITEMS (ID, NAME, QUANTITY, UNITS) VALUES (?, ?, ?, ?)")
+                        con.prepareStatement("INSERT INTO ITEMS (ID, NAME, QUANTITY, UNITS) VALUES(?, ?, ?, ?)")
         ) {
-
             stmt.setInt(1, id);
             stmt.setString(2, name);
             stmt.setBigDecimal(3, quantity);
             stmt.setString(4, units);
 
             stmt.executeUpdate();
-
             response.sendRedirect(request.getContextPath() + "/list");
 
         } catch (SQLException e) {

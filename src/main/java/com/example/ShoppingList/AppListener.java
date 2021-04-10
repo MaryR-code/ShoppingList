@@ -16,7 +16,7 @@ public class AppListener implements ServletContextListener, HttpSessionListener,
         try {
             Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(e);
         }
     }
 
