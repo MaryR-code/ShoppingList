@@ -30,16 +30,16 @@
         <input id="id" name="id">
     </p>
     <p>
-        <label for="name">Name</label>
-        <input id="name" name="name">
+        <label for="article">Article</label>
+        <select id="article" name="articleId">
+            <c:forEach items="${articles}" var="a">
+                <option value="${a.id}">${a.name} (${a.units})</option>
+            </c:forEach>
+        </select>
     </p>
     <p>
         <label for="quantity">Quantity</label>
         <input id="quantity" name="quantity">
-    </p>
-    <p>
-        <label for="units">Units</label>
-        <input id="units" name="units">
     </p>
     <p>
         <button type="submit">ADD</button>

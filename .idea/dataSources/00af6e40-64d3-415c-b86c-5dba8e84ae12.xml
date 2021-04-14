@@ -176,54 +176,138 @@
     <collation id="161" parent="2" name="UKRAINIAN_UKRAINE"/>
     <collation id="162" parent="2" name="VIETNAMESE"/>
     <collation id="163" parent="2" name="VIETNAMESE_VIETNAM"/>
-    <table id="164" parent="4" name="ITEMS">
+    <table id="164" parent="4" name="ARTICLES">
       <ObjectId>6</ObjectId>
     </table>
-    <column id="165" parent="164" name="ID">
+    <table id="165" parent="4" name="ITEMS">
+      <ObjectId>11</ObjectId>
+    </table>
+    <table id="166" parent="4" name="UNITS">
+      <ObjectId>3</ObjectId>
+    </table>
+    <column id="167" parent="164" name="ID">
       <Position>1</Position>
       <DataType>INT|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="166" parent="164" name="NAME">
+    <column id="168" parent="164" name="NAME">
       <Position>2</Position>
       <DataType>VARCHAR(200)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="167" parent="164" name="QUANTITY">
+    <column id="169" parent="164" name="UNIT_ID">
+      <Position>3</Position>
+      <DataType>INT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="170" parent="164" name="PRIMARY_KEY_E">
+      <ObjectId>7</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <SourceTextLength>72</SourceTextLength>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+      <AutoCreated>1</AutoCreated>
+    </index>
+    <index id="171" parent="164" name="CONSTRAINT_INDEX_E">
+      <ObjectId>9</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <SourceTextLength>76</SourceTextLength>
+      <ColNames>UNIT_ID</ColNames>
+      <AutoCreated>1</AutoCreated>
+    </index>
+    <key id="172" parent="164" name="CONSTRAINT_E">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="173" parent="164" name="CONSTRAINT_E5">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>UNIT_ID</ColNames>
+      <RefTableName>UNITS</RefTableName>
+      <RefKeyName>PRIMARY_KEY_4</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>restrict</OnUpdate>
+    </foreign-key>
+    <column id="174" parent="165" name="ID">
+      <Position>1</Position>
+      <DataType>INT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="175" parent="165" name="ARTICLE_ID">
+      <Position>2</Position>
+      <DataType>INT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="176" parent="165" name="QUANTITY">
       <Position>3</Position>
       <DataType>DECIMAL(10,3)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="168" parent="164" name="UNITS">
+    <column id="177" parent="165" name="DONE">
       <Position>4</Position>
-      <DataType>VARCHAR(50)|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="169" parent="164" name="DONE">
-      <Position>5</Position>
       <DataType>BOOLEAN|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>FALSE</DefaultExpression>
     </column>
-    <column id="170" parent="164" name="CREATE_TIME">
-      <Position>6</Position>
+    <column id="178" parent="165" name="CREATE_TIME">
+      <Position>5</Position>
       <DataType>TIMESTAMP|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <column id="171" parent="164" name="SORT_ORDER">
-      <Position>7</Position>
+    <column id="179" parent="165" name="SORT_ORDER">
+      <Position>6</Position>
       <DataType>INT|0s</DataType>
     </column>
-    <index id="172" parent="164" name="PRIMARY_KEY_D">
-      <ObjectId>7</ObjectId>
+    <index id="180" parent="165" name="PRIMARY_KEY_42">
+      <ObjectId>12</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <SourceTextLength>70</SourceTextLength>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+      <AutoCreated>1</AutoCreated>
+    </index>
+    <index id="181" parent="165" name="CONSTRAINT_INDEX_4">
+      <ObjectId>14</ObjectId>
+      <NameSurrogate>1</NameSurrogate>
+      <SourceTextLength>76</SourceTextLength>
+      <ColNames>ARTICLE_ID</ColNames>
+      <AutoCreated>1</AutoCreated>
+    </index>
+    <key id="182" parent="165" name="CONSTRAINT_42">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="183" parent="165" name="CONSTRAINT_42B">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ARTICLE_ID</ColNames>
+      <RefTableName>ARTICLES</RefTableName>
+      <RefKeyName>PRIMARY_KEY_E</RefKeyName>
+      <RefColNames>ID</RefColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>restrict</OnUpdate>
+    </foreign-key>
+    <column id="184" parent="166" name="ID">
+      <Position>1</Position>
+      <DataType>INT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="185" parent="166" name="NAME">
+      <Position>2</Position>
+      <DataType>VARCHAR(200)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="186" parent="166" name="PRIMARY_KEY_4">
+      <ObjectId>4</ObjectId>
       <NameSurrogate>1</NameSurrogate>
       <SourceTextLength>69</SourceTextLength>
       <ColNames>ID</ColNames>
       <Unique>1</Unique>
       <AutoCreated>1</AutoCreated>
     </index>
-    <key id="173" parent="164" name="CONSTRAINT_4">
+    <key id="187" parent="166" name="CONSTRAINT_4">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>

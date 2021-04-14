@@ -17,29 +17,40 @@ public class ShoppingListServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try (
                 Connection con = DriverManager.getConnection("jdbc:h2:file:~/ShoppingList", "sa", "");
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM items ORDER BY SORT_ORDER")
+                Statement itemsSTMT = con.createStatement();
+                ResultSet itemsRS = itemsSTMT.executeQuery("SELECT i.id, a.name, i.quantity, u.name as units, i.done " +
+                                                            "FROM items i, articles a, units u " +
+                                                            "WHERE i.article_id = a.id AND u.id = a.unit_id " +
+                                                            "ORDER BY SORT_ORDER");
+                Statement articlesSTMT = con.createStatement();
+                ResultSet articlesRS = articlesSTMT.executeQuery("SELECT a.id, a.name, u.name as units " +
+                                                                "FROM articles a, units u " +
+                                                                "WHERE a.unit_id = u.id")
         ) {
+            List<Article> articleList = new ArrayList<>();
+            while (articlesRS.next()) {
+                Article article = new Article();
+                article.setId(articlesRS.getInt("ID"));
+                article.setName(articlesRS.getString("NAME"));
+                article.setUnits(articlesRS.getString("UNITS"));
+                articleList.add(article);
+            }
+
             List<Item> itemList = new ArrayList<>();
-            while (rs.next()) {
-                int id = rs.getInt("ID");
-                String name = rs.getString("NAME");
-                BigDecimal quantity = rs.getBigDecimal("QUANTITY");
-                String units = rs.getString("UNITS");
-                boolean done = rs.getBoolean("DONE");
-
-                Item item = new Item();
-                item.setId(id);
-                item.setName(name);
-                item.setQuantity(quantity);
-                item.setUnits(units);
-                item.setDone(done);
-
+            while (itemsRS.next()) {//
+                Item item = new Item();//
+                item.setId(itemsRS.getInt("ID"));
+                item.setName(itemsRS.getString("NAME"));
+                item.setQuantity(itemsRS.getBigDecimal("QUANTITY"));
+                item.setUnits(itemsRS.getString("UNITS"));
+                item.setDone(itemsRS.getBoolean("DONE"));
                 itemList.add(item);
             }
 
             request.setAttribute("items", itemList);
+            request.setAttribute("articles", articleList);
             request.getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+
         } catch (SQLException | ServletException e) {
             throw new IllegalStateException(e);
         }
@@ -48,19 +59,17 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
         BigDecimal quantity = new BigDecimal(request.getParameter("quantity"));
-        String units = request.getParameter("units");
+        int articleId = Integer.parseInt(request.getParameter("articleId"));
 
         try (
                 Connection con = DriverManager.getConnection("jdbc:h2:file:~/ShoppingList", "sa", "");
                 PreparedStatement stmt =
-                        con.prepareStatement("INSERT INTO ITEMS (ID, NAME, QUANTITY, UNITS) VALUES(?, ?, ?, ?)")
+                        con.prepareStatement("INSERT INTO ITEMS (ID, QUANTITY, ARTICLE_ID) VALUES(?, ?, ?)")
         ) {
             stmt.setInt(1, id);
-            stmt.setString(2, name);
-            stmt.setBigDecimal(3, quantity);
-            stmt.setString(4, units);
+            stmt.setBigDecimal(2, quantity);
+            stmt.setInt(3, articleId);
 
             stmt.executeUpdate();
             response.sendRedirect(request.getContextPath() + "/list");
