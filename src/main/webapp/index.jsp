@@ -5,8 +5,16 @@
 <head>
     <title>Shopping List</title>
 </head>
+
 <body>
-<a href="<c:url value="/list"/>">Open Shopping List</a>
-<a href="<c:url value="/article"/>">Add new article</a>
+    <p>
+        <a href="<c:url value="/list"/>">Open Shopping List</a>
+    </p>
+    <p>
+        <a href="<c:url value="/article"/>">Add new Article</a>
+    </p>
+    <p>
+        <a href="<c:url value="/unit"/>">Add new Unit</a>
+    </p>
 </body>
 </html>

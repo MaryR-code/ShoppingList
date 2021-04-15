@@ -26,21 +26,10 @@ public class ArticleServlet extends HttpServlet {
                 ResultSet unitsRS = unitsSTMT.executeQuery("SELECT u.id, u.name FROM units u")
         ) {
             List<Article> articleList = new ArrayList<>();
-            while (articlesRS.next()) {
-                Article article = new Article();
-                article.setId(articlesRS.getInt("ID"));
-                article.setName(articlesRS.getString("NAME"));
-                article.setUnits(articlesRS.getString("UNITS"));
-                articleList.add(article);
-            }
+            addArticle(articlesRS, articleList);
 
             List<Unit> unitList = new ArrayList<>();
-            while (unitsRS.next()) {
-                Unit unit = new Unit();
-                unit.setId(unitsRS.getInt("ID"));
-                unit.setName(unitsRS.getString("NAME"));
-                unitList.add(unit);
-            }
+            UnitServlet.addUnit(unitsRS, unitList);
 
             request.setAttribute("articles", articleList);
             request.setAttribute("units", unitList);
@@ -48,6 +37,15 @@ public class ArticleServlet extends HttpServlet {
 
         } catch (SQLException | ServletException e) {
                 throw new IllegalStateException(e);
+        }
+    }
+    static void addArticle(ResultSet articlesRS, List<Article> articleList) throws SQLException {
+        while (articlesRS.next()) {
+            Article article = new Article();
+            article.setId(articlesRS.getInt("ID"));
+            article.setName(articlesRS.getString("NAME"));
+            article.setUnits(articlesRS.getString("UNITS"));
+            articleList.add(article);
         }
     }
 

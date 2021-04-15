@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>New article</title>
+    <title>New unit</title>
 </head>
 
 <body>
@@ -10,13 +10,11 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>units</th>
     </tr>
-    <c:forEach items="${articles}" var="a">
+    <c:forEach items="${units}" var="u">
         <tr>
-            <td>${a.id}</td>
-            <td>${a.name}</td>
-            <td>${a.units}</td>
+            <td>${u.id}</td>
+            <td>${u.name}</td>
         </tr>
     </c:forEach>
 </table>
@@ -30,16 +28,8 @@
         <label for="name">Name</label>
         <input id="name" name="name">
     </p>
-    <p>
-        <label for="units">units</label>
-        <select id="units" name="unitId">
-            <c:forEach items="${units}" var="u">
-                <option value="${u.id}">(${u.name})</option>
-            </c:forEach>
-        </select>
-    </p>
     <h4>
-        <label for="add">Add new article => </label>
+        <label for="add">Add new unit => </label>
         <button id="add" type="submit">ADD</button>
     </h4>
 </form>

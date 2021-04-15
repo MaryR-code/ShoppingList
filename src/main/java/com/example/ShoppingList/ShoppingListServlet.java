@@ -32,24 +32,10 @@ public class ShoppingListServlet extends HttpServlet {
                                                                 "WHERE a.unit_id = u.id")
         ) {
             List<Article> articleList = new ArrayList<>();
-            while (articlesRS.next()) {
-                Article article = new Article();
-                article.setId(articlesRS.getInt("ID"));
-                article.setName(articlesRS.getString("NAME"));
-                article.setUnits(articlesRS.getString("UNITS"));
-                articleList.add(article);
-            }
+            ArticleServlet.addArticle(articlesRS, articleList);
 
             List<Item> itemList = new ArrayList<>();
-            while (itemsRS.next()) {//
-                Item item = new Item();//
-                item.setId(itemsRS.getInt("ID"));
-                item.setName(itemsRS.getString("NAME"));
-                item.setQuantity(itemsRS.getBigDecimal("QUANTITY"));
-                item.setUnits(itemsRS.getString("UNITS"));
-                item.setDone(itemsRS.getBoolean("DONE"));
-                itemList.add(item);
-            }
+            addItem(itemsRS, itemList);
 
             request.setAttribute("items", itemList);
             request.setAttribute("articles", articleList);
@@ -57,6 +43,18 @@ public class ShoppingListServlet extends HttpServlet {
 
         } catch (SQLException | ServletException e) {
             throw new IllegalStateException(e);
+        }
+    }
+
+    private void addItem(ResultSet itemsRS, List<Item> itemList) throws SQLException {
+        while (itemsRS.next()) {
+            Item item = new Item();
+            item.setId(itemsRS.getInt("ID"));
+            item.setName(itemsRS.getString("NAME"));
+            item.setQuantity(itemsRS.getBigDecimal("QUANTITY"));
+            item.setUnits(itemsRS.getString("UNITS"));
+            item.setDone(itemsRS.getBoolean("DONE"));
+            itemList.add(item);
         }
     }
 

@@ -42,9 +42,10 @@
         <label for="quantity">Quantity</label>
         <input id="quantity" name="quantity">
     </p>
-    <p>
-        <button type="submit">ADD</button>
-    </p>
+    <h4>
+        <label for="add">Add new item => </label>
+        <button id="add" type="submit">ADD</button>
+    </h4>
 </form>
 </body>
 </html>
