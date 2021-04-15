@@ -1,4 +1,4 @@
-package com.example.ShoppingList;
+package com.example.ShoppingList.model;
 
 public class Article {
     private int id;

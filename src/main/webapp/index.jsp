@@ -7,5 +7,6 @@
 </head>
 <body>
 <a href="<c:url value="/list"/>">Open Shopping List</a>
+<a href="<c:url value="/article"/>">Add new article</a>
 </body>
 </html>

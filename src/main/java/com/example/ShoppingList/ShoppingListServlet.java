@@ -1,5 +1,8 @@
 package com.example.ShoppingList;
 
+import com.example.ShoppingList.model.Article;
+import com.example.ShoppingList.model.Item;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,9 +14,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "shoppingListServlet", value = "/list")
+@WebServlet(name = "ShoppingListServlet", value = "/list")
 public class ShoppingListServlet extends HttpServlet {
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try (
                 Connection con = DriverManager.getConnection("jdbc:h2:file:~/ShoppingList", "sa", "");
